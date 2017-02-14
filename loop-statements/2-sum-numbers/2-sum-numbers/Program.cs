@@ -10,7 +10,7 @@ namespace _2_sum_numbers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Calculating a partial sum for a series as a sum of numbers 1...N");
+            Console.WriteLine("Calculating a sum for a series as a sum of numbers 1...N");
             Console.Write("Enter N: ");
             //Need to add check for the number, has to be positive and > 1 according to the specification
             string numberInput = Console.ReadLine();
@@ -21,11 +21,22 @@ namespace _2_sum_numbers
             //Console.WriteLine("Converted number is: {0}", numberValue);
             //Console.ReadLine();
 
-            int sumValue = 1;
+            string seriesOperation = "Input:" + numberValue + " (N=" + numberValue + " : ";
+            int sumValue = 0;
             for (int i = 1; i <= numberValue; i++)
             {
                 sumValue += i;
+                if (i == 1)
+                {
+                    seriesOperation += i;
+                }
+                else
+                {
+                    seriesOperation += " + " + i;
+                }
             }
+            seriesOperation += " = " + sumValue + ")";
+            Console.WriteLine(seriesOperation);
             Console.WriteLine("Sum for N={0} equals {1}!", numberValue, sumValue);
             Console.WriteLine("\n");
             Console.WriteLine("Press Enter to exit!");
