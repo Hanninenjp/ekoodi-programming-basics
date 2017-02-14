@@ -10,6 +10,7 @@ namespace _1_calculate_factorial
     {
         static void Main(string[] args)
         {
+            //Could be Calculating a factorial N!, Enter N:
             Console.WriteLine("Calculating a factorial");
             Console.Write("Enter a number: ");
             //Need to add check for the number, has to be positive and > 1 according to the specification
@@ -23,7 +24,7 @@ namespace _1_calculate_factorial
             //Console.WriteLine("User input is: {0}", numberInput);
             //Console.WriteLine("Converted number is: {0}", numberValue);
             //Console.ReadLine();
-            
+
             //Following is not strictly following the right formula for calculating N, but should yield the right result!
             //Cases 0! = 1, and 1! = 1 could be handled as exceptions with an if-statement and the logic could be written differently
             //Rewrite this!
