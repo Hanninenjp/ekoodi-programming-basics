@@ -11,44 +11,66 @@ namespace _1_calculate_factorial
         static void Main(string[] args)
         {
             Console.WriteLine("Calculate factorial N!");
+
+            //Reading and converting user input
             Console.Write("Enter N: ");
-            //Need to add check for the number, has to be positive and > 1 according to the specification
-            //However factorial 0! is also defined according to the convention for an empty product
-            //Therefore factorial 0! can be also calculated
-            //See https://en.wikipedia.org/wiki/Factorial for further details
             string numberInput = Console.ReadLine();
-            int numberValue = 0; // Int32.Parse(numberInput);
-            //Convert number with some error handling, see https://msdn.microsoft.com/en-us/library/bb397679.aspx
+            int numberValue = 0;
+
             try
             {
+                //Convert number
+                //Conversion failures will throw an exception that is handled later, see https://msdn.microsoft.com/en-us/library/bb397679.aspx
                 numberValue = Convert.ToInt32(numberInput);
+                //Conversion is successful
+                //Calculating factorial
+                if (numberValue < 0)
+                {
+                    //Handle negative numbers
+                    //According to the specification N has to be > 0 therefore for our purposes factorial for negative numbers is not defined
+                    //Factorial 0! however is commonly defined and will be calculated
+                    //See https://en.wikipedia.org/wiki/Factorial for further details
+                    Console.WriteLine("Factorial {0}! is not defined!", numberValue);
+                }
+                else
+                {
+                    Console.WriteLine("N={0}", numberValue);
+
+                    //Calculating factorial N!
+                    //Following algorithm is not strictly following the mathematical formula for calculating N!, but yields the right result!
+                    //Cases 0! = 1, and 1! = 1 could be alternatively handled as exceptions with an if-statement
+                    decimal factorialValue = 1;
+                    //Decimal type is used for the factorial result with exception handling for overflow
+                    //Double type could be alternatively used and infinity could be handled as a special case
+                    //See double https://msdn.microsoft.com/en-us/library/system.double(v=vs.110).aspx
+                    try
+                    {
+                        for (int i = 1; i <= numberValue; i++)
+                        {
+                            checked
+                            {
+                                factorialValue *= i;
+                            }
+
+                        }
+                        //Factorial result is a valid number
+                        Console.WriteLine("Factorial {0}! equals {1}.", numberValue, factorialValue);
+                    }
+                    catch (OverflowException e)
+                    {
+                        //Factorial result is not a valid number
+                        Console.WriteLine("Factorial {0}! result is out of range (1 - {1})!", numberValue, decimal.MaxValue);
+                        Console.WriteLine("Try entering a smaller N!");
+                    }
+                }
             }
             catch (FormatException e)
             {
-                Console.WriteLine("Input string is not a sequence of digits.");
+                Console.WriteLine("Input is not a valid number!");
             }
             catch (OverflowException e)
             {
-                Console.WriteLine("The number cannot fit in an Int32.");
-            }
-
-            if (numberValue < 0)
-            {
-                //Error handling for negative numbers
-                Console.WriteLine("N must be 0 or a positive integer!", numberValue + 1);
-            }
-            else
-            {
-                Console.WriteLine("N={0}", numberValue);
-                //Calculate factorial N!
-                //Following is not strictly following the right formula for calculating N!, but yields the right result!
-                //Cases 0! = 1, and 1! = 1 could be handled as exceptions with an if-statement and the logic could be written differently
-                int factorialValue = 1;
-                for (int i = 1; i <= numberValue; i++)
-                {
-                    factorialValue *= i;
-                }
-                Console.WriteLine("Factorial {0}! equals {1}!", numberValue, factorialValue);
+                Console.WriteLine("Input is out of range (1 - {0})!", int.MaxValue);
             }
 
             Console.WriteLine("\n");
