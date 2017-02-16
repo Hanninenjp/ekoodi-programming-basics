@@ -15,34 +15,31 @@ namespace _10_vakioveikkaus_predictions
             Console.WriteLine("Predicting a random {0} match line for Vakioveikkaus!", matchesNumber);
 
             Random rng = new Random();
-            int randomNumber = 0;
-            int lowerBound = 0;
-            int upperBound = 100;
             string matchResult = "";
 
             for (int i = 1; i <= matchesNumber; i++)
             {
-                //Generate random results for matches
-                randomNumber = rng.Next(lowerBound, upperBound);
-                //Home win, 40% chance
+                //Generate random results for matches, within range [0-99]
+                int lowerBound = 0;
+                int upperBound = 100;
+                int randomNumber = rng.Next(lowerBound, upperBound);
+                //Home win, 40% chance, within range [0-39]
                 if (randomNumber < 40)
                 {
                     matchResult = "1";
                 }
-                //Draw, 20% chance
-                else if (randomNumber >= 40 && randomNumber < 59)
+                //Draw, 20% chance, within range [40-59]
+                else if (randomNumber >= 40 && randomNumber < 60)
                 {
                     matchResult = "X";
                 }
-                //Away win, 40% chance
+                //Away win, 40% chance, within range [60-99]
                 else
                 {
                     matchResult = "2";
                 }
-
                 Console.WriteLine("{0}: {1}", i, matchResult);
             }
-
             Console.WriteLine("\nPress Enter to exit!");
             Console.ReadLine();
         }
