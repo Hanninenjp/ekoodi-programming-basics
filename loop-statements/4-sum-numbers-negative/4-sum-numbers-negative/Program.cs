@@ -10,62 +10,98 @@ namespace _4_sum_numbers_negative
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Calculating a sum of numbers 1...N or -1...-N");
-            Console.Write("Enter N: ");
-            //Might need to add some checks for the number
-            string numberInput = Console.ReadLine();
-            int numberValue = Int32.Parse(numberInput);
 
-            //Following is just for development time checking
-            //Console.WriteLine("User input is: {0}", numberInput);
-            //Console.WriteLine("Converted number is: {0}", numberValue);
-            //Console.ReadLine();
 
-            string seriesOperation = "";
-            int sumValue = 0;
-
-            if (IsPositive(numberValue))
+            bool success = true;
+            do
             {
-                seriesOperation = "Input:" + numberValue + " (N=" + numberValue + " : ";
-                //Sum positive number series 1...N
-                for (int i=1; i <= numberValue; i++)
+                Console.WriteLine("Calculate partial sum for a series 1...N or -1...-N");
+                Console.Write("Enter N: ");
+                string numberInput = Console.ReadLine();
+                int numberValue = 0;
+                try
                 {
-                    sumValue += i;
-                    if (i == 1)
+                    //Convert number
+                    //Conversion failures will throw an exception
+                    numberValue = Convert.ToInt32(numberInput);
+                    //Conversion is successful, else exception handling is performed
+                    if (numberValue == 0)
                     {
-                        seriesOperation += i;
+                        //Error handling for negative numbers
+                        success = false;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Partial sum for N={0} does not exist!", numberValue);
+                        Console.ResetColor();
+                    }
+                    else if (IsPositive(numberValue))
+                    {
+                        //Calculate partial sum for positive numbers
+                        //Display the operation and results
+                        string seriesOperation = "Input:" + numberValue + " (N=" + numberValue + " : ";
+                        int sumValue = 0;
+                        for (int i = 1; i <= numberValue; i++)
+                        {
+                            //There is no error handling for an overflow
+                            sumValue += i;
+                            if (i == 1)
+                            {
+                                seriesOperation += i;
+                            }
+                            else
+                            {
+                                seriesOperation += "+" + i;
+                            }
+                        }
+                        seriesOperation += "=" + sumValue + ")";
+                        Console.WriteLine(seriesOperation);
+                        Console.WriteLine("Sum for N={0} equals {1}!", numberValue, sumValue);
+                        //Done
+                        success = true;
                     }
                     else
                     {
-                        seriesOperation += " + " + i;
+                        //Calculate partial sum for negative numbers
+                        //Display the operation and results
+                        string seriesOperation = "Input:" + numberValue + " [N=" + numberValue + " : ";
+                        int sumValue = 0;
+                        for (int i = -1; i >= numberValue; i--)
+                        {
+                            //There is no error handling for an overflow
+                            sumValue += i;
+                            if (i == -1)
+                            {
+                                seriesOperation += "(" + i + ")";
+                            }
+                            else
+                            {
+                                seriesOperation += "+" + "(" + i + ")";
+                            }
+                        }
+                        seriesOperation += "=" + sumValue + "]";
+                        Console.WriteLine(seriesOperation);
+                        Console.WriteLine("Sum for N={0} equals {1}!", numberValue, sumValue);
+                        //Done
+                        success = true;
                     }
                 }
-                seriesOperation += " = " + sumValue + ")";
-            }
-            else
-            {
-                seriesOperation = "Input:" + numberValue + " [N=" + numberValue + " : ";
-                //Sum negative number series -1...-N
-                for (int i=-1; i >= numberValue; i--)
+                catch (FormatException e)
                 {
-                    sumValue += i;
-                    if (i == -1)
-                    {
-                        seriesOperation += "(" + i + ")";
-                    }
-                    else
-                    {
-                        seriesOperation += " + (" + i + ")";
-                    }
+                    success = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Input is not a valid number!");
+                    Console.ResetColor();
                 }
-                seriesOperation += " = " + sumValue + "]";
-            }
-
-            Console.WriteLine(seriesOperation);
-            Console.WriteLine("Sum for N={0} equals {1}!", numberValue, sumValue);
-            Console.WriteLine("\n");
-            Console.WriteLine("Press Enter to exit!");
-            Console.ReadLine();
+                catch (OverflowException e)
+                {
+                    success = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Input is out of range (1 - {0})!", int.MaxValue);
+                    Console.ResetColor();
+                }
+                Console.WriteLine("\nPress Enter to continue!");
+                Console.ReadLine();
+                Console.Clear();
+            } while (!success);
         }
         public static bool IsPositive (int number)
         {
