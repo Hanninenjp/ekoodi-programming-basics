@@ -58,7 +58,7 @@ namespace _1_calculate_factorial
                     }
                     catch (OverflowException e)
                     {
-                        //Factorial result is not a valid number
+                        //Factorial result is not a valid number due to overflow
                         Console.WriteLine("Factorial {0}! result is out of range (1 - {1})!", numberValue, decimal.MaxValue);
                         Console.WriteLine("Try entering a smaller N!");
                     }
