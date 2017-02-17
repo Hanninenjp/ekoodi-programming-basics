@@ -19,7 +19,7 @@ namespace _1_stars
             //Error handling
             if (starsNumber == 0)
             {
-                Console.WriteLine("Fine {0} stars are printed!", starsNumber);
+                Console.WriteLine("Fine, {0} stars are printed!", starsNumber);
             }
             else if (starsNumber < 0)
             {
@@ -73,7 +73,7 @@ namespace _1_stars
                 {
                     success = false;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Input is out of range (1 - {0})!", int.MaxValue);
+                    Console.WriteLine("Input is not within the supported input range [{0} - {1}]!", int.MinValue, int.MaxValue);
                     Console.ResetColor();
                 }
             } while (!success);

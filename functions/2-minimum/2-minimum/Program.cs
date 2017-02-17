@@ -59,7 +59,7 @@ namespace _2_minimum
                 {
                     success = false;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Input is out of range (1 - {0})!", int.MaxValue);
+                    Console.WriteLine("Input is not within the supported input range [{0} - {1}]!", int.MinValue, int.MaxValue);
                     Console.ResetColor();
                 }
             } while (!success);

@@ -95,7 +95,7 @@ namespace _4_sum_numbers_negative
                 {
                     success = false;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Input is out of range (1 - {0})!", int.MaxValue);
+                    Console.WriteLine("Input is not within the supported input range [{0} - {1}]!", int.MinValue, int.MaxValue);
                     Console.ResetColor();
                 }
                 Console.WriteLine("\nPress Enter to continue!");
